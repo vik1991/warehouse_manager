@@ -1,0 +1,11 @@
+<h1>Component manager</h1>
+
+{% if components %}
+    <ul>
+    {% for component in components %}
+        <li>{{ component.code }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
