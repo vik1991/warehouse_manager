@@ -2,13 +2,12 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from warehouse.models import Component, User
-from warehouse.validator import *
 from warehouse.forms import LoginForm
 
 
 class WarehouseView:
     def __init__(self,*args,**kwargs):
-        self.validation = Validator()
+        pass
 
     def Index(self, request):
 
