@@ -1,11 +1,33 @@
-<h1>Component manager</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+.button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
 
-{% if components %}
-    <ul>
-    {% for component in components %}
-        <li>{{ component.code }}</li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}
+.button1 {background-color: #4CAF50;} /* Green */
+.button2 {background-color: #008CBA;} /* Blue */
+
+
+    </style>
+</head>
+<body>
+<h1>welcome to warehouse Home page</h1>
+<a href="http://localhost:8000/login/">
+    <button class="button button1">login</button>
+</a>
+<a href="http://localhost:8000/sign_up/">
+    <button class="button button2">sign up</button>
+</a>
+
+</body>
+</html>
