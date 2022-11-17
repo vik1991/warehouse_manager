@@ -4,21 +4,21 @@ from django.urls import reverse
 from warehouse.models import Component, User
 from warehouse.validator import *
 
+
 class WarehouseView:
-    def __init__(self):
-        validation = Validator()
+    def __init__(self,*args,**kwargs):
+        self.validation = Validator()
 
     def Index(self, request):
 
         return render(request, 'warehouse/index.html')
 
     def SignUp(self, request):
-        print("begin login")
         if request.method == "POST":
             username = request.POST.get("uname", False)
             password = request.POST.get("psw", False)
             email = request.POST.get("email", False)
-
+            validation = self.validation.EmailValidation(email)
             print("print username", username, "kai to passs", password, "kai to mail", email)
             context = {
                 'user': username,

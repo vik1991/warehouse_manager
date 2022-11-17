@@ -1,14 +1,10 @@
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, EmailValidator
 
 
 class Validator:
 
-    def EmailValidation(self):
+    def EmailValidation(self, email):
         print("in the validation form")
-        validateUsername = RegexValidator(r'/[a-zA-Z0-9]', message="validator trigger")
-
-        if not validateUsername:
-            print("validation is done")
-            # validateEmail = RegexValidator()
-            # validateassword = RegexValidator()
-            print(validateUsername)
+        validateEmail = EmailValidator(message="rewrite your email")
+        validateEmail(email)
+        print(validateEmail)
