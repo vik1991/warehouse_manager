@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from warehouse.models import Component, User
 from warehouse.validator import *
+from warehouse.forms import LoginForm
 
 
 class WarehouseView:
@@ -18,16 +19,19 @@ class WarehouseView:
             username = request.POST.get("uname", False)
             password = request.POST.get("psw", False)
             email = request.POST.get("email", False)
-            validation = self.validation.EmailValidation(email)
-            print("print username", username, "kai to passs", password, "kai to mail", email)
-            context = {
-                'user': username,
-                'password': password,
-                'email': email,
-            }
-            userSave = User(username=username, password=password, email=email)
-            userSave.save()
-            return redirect("/components/")
+            form = LoginForm(request.POST)
+            if form.is_valid():
+                print("print username", username, "kai to passs", password, "kai to mail", email)
+                context = {
+                    'user': username,
+                    'password': password,
+                    'email': email,
+                }
+                userSave = User(username=username, password=password, email=email)
+                userSave.save()
+                return redirect("/components/")
+            else:
+                print('lathos email')
         return render(request, 'warehouse/sing_up.html')
 
     def Login(self, request):
