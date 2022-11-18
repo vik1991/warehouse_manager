@@ -9,5 +9,6 @@ urlpatterns = [
     path("sign_up/", objectHome.SignUp, name="sign_up"),
     path("components/", objectHome.ComponentMenu, name="components"),
     path("login/",objectHome.Login,name="login")
-
 ]
+
+
