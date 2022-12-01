@@ -3,6 +3,8 @@
 {% if components %}
 <ul>
     {% for component in components %}
+        <li>{{ component.id }}</li>
+        <li>{{ component.code }}</li>
         <li>{{ component.code }}</li>
         <li>{{ component.types }}</li>
         <li>{{ component.characteristics }}</li>

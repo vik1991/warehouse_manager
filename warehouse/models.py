@@ -13,7 +13,7 @@ class Component(models.Model):
 
 class User(models.Model):
     username = models.CharField(max_length=100)
-    password = models.CharField(max_length=32)
+    password = models.CharField(max_length=250)
     email = models.EmailField()
 
     class Meta:
