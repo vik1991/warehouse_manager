@@ -1,9 +1,12 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from warehouse.models import Component, User
+from warehouse.models import Component
 from warehouse.forms import LoginForm
 from django.contrib.auth.hashers import make_password, check_password
+from django.contrib.auth.models import AbstractBaseUser, UserManager
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 
 
 class WarehouseView:
@@ -20,42 +23,31 @@ class WarehouseView:
             password = request.POST.get("psw", False)
             email = request.POST.get("email", False)
             form = LoginForm(request.POST)
+
             if form.is_valid():
-                hashedPassword = make_password(password)
-
-                print("print username", username, "kai to passs", hashedPassword, "kai to mail", email)
-                context = {
-                    'user': username,
-                    'password': hashedPassword,
-                    'email': email,
-                }
-                userSave = User(username=username, password=hashedPassword, email=email)
+                print("print username", username, "kai to passs", password, "kai to mail", email)
+                userSave = User.objects.create_user(username, email, password)
                 userSave.save()
-                id = "1"
-                print("to id ienia auto", type(id), id)
 
-                return redirect('/components/' + id + "/")
+                return redirect('/login')
             else:
                 print('lathos email')
         return render(request, 'warehouse/sing_up.html')
 
-    def login(self, request):
+    def login_user(self, request):
         if request.method == "POST":
-            username = request.POST.get("username", False)
-            email = request.POST.get("email", False)
-            password = request.POST.get("password", False)
-            hashedPassword = User.odjects.filter(username)
-            print("to onoma einai ", hashedPassword)
-            checkPassword = check_password(hashedPassword, password)
-            print("login username", username, "email", email, "password", password)
-            if checkPassword:
-                return redirect("/components/")
+            username = request.POST["username"]
+            password = request.POST["password"]
+            user = authenticate(username=username, password=password)
+            print("login username", username, "password", password)
+            print("to onoma einai ", user)
+            if user is not None:
+                login(request, user)
+                return redirect("/components")
             else:
                 print("enter the correct password")
-                return render(request, 'warehouse/login.html')
+                return redirect("/login")
         return render(request, 'warehouse/login.html')
-
-    # def call_user
 
     def show_components(self, request):
         components = Component.objects.all()
@@ -65,8 +57,8 @@ class WarehouseView:
         }
         return render(request, 'warehouse/select.html', context)
 
-    def componentMenu(self, request,user_id=None):
-        print("userid",user_id)
+    def componentMenu(self, request, user_id=None):
+        print("userid", user_id)
         print(request.user)
 
         if request.method == "POST":
@@ -81,4 +73,35 @@ class WarehouseView:
         else:
             return render(request, 'warehouse/component_menu.html')
 
+    def show_users(self, request):
+        print("eimaste sto show users")
+        pass
 
+    def logout_view(self, request):
+        print("kaname logout")
+        logout(request)
+        return redirect('login_user')
+
+    def change_password(self, request):
+        if request.method == "POST":
+            username = request.POST['username']
+            password = request.POST['password']
+            new_password = request.POST['new_password']
+            user = authenticate(username=username, password=password)
+            print("o user einai", user)
+            if user is not None:
+                u = User.objects.get(username__exact=username)
+                password_check = u.check_password(password)
+                print(" password_checker  is", password_check)
+                user.set_password(new_password)
+                user.save()
+                print("password changet to ", new_password)
+                print("to user pass einai", user)
+                print("to username", username, "to password", password, "to new password ", new_password)
+                # check = check_password(password,)
+
+                return redirect("/login")
+
+        else:
+            return render(request, "warehouse/change_password.html")
+        return render(request, "warehouse/change_password.html")

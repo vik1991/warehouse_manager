@@ -7,9 +7,12 @@ urlpatterns = [
     path("", objectHome.Index, name="index"),
     path("show_components/", objectHome.show_components, name="show_component"),
     path("sign_up/", objectHome.signUp, name="sign_up"),
-    path("components/", objectHome.componentMenu, name="component_create"),
+    path("components/", objectHome.componentMenu, name="componentMenu"),
     path("components/<int:user_id>/", objectHome.componentMenu, name="component"),
-    path("login/",objectHome.login,name="login")
+    path("login/",objectHome.login_user,name="login_user"),
+    path("show_users/",objectHome.show_users, name="show_users"),
+    path("logout_view/",objectHome.logout_view, name="logout_view"),
+    path("change_pass/",objectHome.change_password, name ="change_password"),
 ]
 
 

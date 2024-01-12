@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<form method="post">
+<form action="/logout_view/" method="post">
     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-
+    <meta charset="utf-8">
+    <input type="submit" value="logout">
     <head>
-        <meta charset="utf-8">
         <title>Page Title</title>
         <meta name="description" content="Roughly 155 characters">
         <link rel="stylesheet" type="text/css" href="mystyle.css">
@@ -26,15 +26,15 @@
     <h2>Delete Component</h2>
     <ul>
 
-        <li><a href="Insert_component/">Insert Component</a>
+        <li><a href="components/">Insert Component</a>
         <li><a href="Select_component/">Show Component</a>
         <li><a href="Delete_component/">Delete Component</a>
 
     </ul>
     </body>
 </form>
- <a href="/login">
+<a href="/login">
 
-        <button class="exit button">Exit</button>
-    </a>
+    <button class="exit button">Exit</button>
+</a>
 </html>
