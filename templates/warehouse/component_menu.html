@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<form action="/logout_view/" method="post">
+<form method="post">
     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
     <meta charset="utf-8">
-    <input type="submit" value="logout">
+
     <head>
         <title>Page Title</title>
         <meta name="description" content="Roughly 155 characters">
@@ -33,8 +33,7 @@
     </ul>
     </body>
 </form>
-<a href="/login">
-
-    <button class="exit button">Exit</button>
-</a>
+  <a href="http://localhost:8000/logout_view/">
+        <button>logout</button>
+    </a>
 </html>

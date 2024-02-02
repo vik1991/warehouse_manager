@@ -57,10 +57,10 @@ class WarehouseView:
         }
         return render(request, 'warehouse/select.html', context)
 
-    def componentMenu(self, request, user_id=None):
-        print("userid", user_id)
-        print(request.user)
-
+    def componentMenu(self, request):
+        if not request.user.is_authenticated:
+            print("user is not authenticated", request.user)
+            return redirect("/login")
         if request.method == "POST":
             print("inside the component menu")
             code = request.POST.get("code", False)
@@ -72,6 +72,8 @@ class WarehouseView:
             return render(request, 'warehouse/component_menu.html')
         else:
             return render(request, 'warehouse/component_menu.html')
+        return render(request, 'warehouse/login.html')
+
 
     def show_users(self, request):
         print("eimaste sto show users")
@@ -80,7 +82,7 @@ class WarehouseView:
     def logout_view(self, request):
         print("kaname logout")
         logout(request)
-        return redirect('login_user')
+        return redirect('/login')
 
     def change_password(self, request):
         if request.method == "POST":

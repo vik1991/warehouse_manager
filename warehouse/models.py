@@ -24,5 +24,6 @@ class UserComponentPivot(models.Model):
     component_id = models.ForeignKey(Component, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+
     class Meta:
         db_table = 'components_users_pivot'
