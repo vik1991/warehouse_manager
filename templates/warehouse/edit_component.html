@@ -1,0 +1,52 @@
+<h1>Delete from user</h1>
+ <h1> {{user}}</h1>
+{% if components %}
+
+<ul>
+    {% for component in components %}
+        <li>{{ forloop.counter }}  </li>
+<!--        <li>{{ component.id }}  </li>-->
+       {{ component.code }}
+        <input type="text" id="code" name="code" placeholder={{ component.code }}>
+
+        <tr>
+            <td>
+                <form action="http://localhost:8000/delete_components/" method="post">
+                <input type="hidden" name="component.code " value="{{component.code }}">
+                <input type="submit" value="edit code">
+                {% csrf_token %}
+                </form>
+            </td>
+        </tr>
+        <li>{{ component.types }}</li>
+        <input type="text" id="types" name="types" placeholder={{ component.types }}>
+
+        <tr>
+            <td>
+                <form action="http://localhost:8000/delete_components/" method="post">
+                <input type="hidden" name="component.types " value="{{component.types }}">
+                <input type="submit" value="edit type">
+                {% csrf_token %}
+                </form>
+            </td>
+        </tr>
+        <li>Code:<input name="code" type="text"/>
+        <li>{{ component.characteristics }}</li>
+        <input type="text" id="characteristics" name="characteristics" placeholder={{ component.characteristics }}>
+
+        <tr>
+            <td>
+                <form action="http://localhost:8000/delete_components/" method="post">
+                <input type="hidden" name="component.characteristics " value="{{component.characteristics }}">
+                <input type="submit" value="edit characteristics">
+                {% csrf_token %}
+                </form>
+            </td>
+        </tr>
+
+    {% endfor %}
+</ul>
+{% else %}
+<p>No polls are available.</p>
+
+{% endif %}

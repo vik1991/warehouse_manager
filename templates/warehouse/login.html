@@ -4,6 +4,7 @@
     <div class="screen">
         <div class="screen__content">
             <form class="login" method="POST">
+                <input type="hidden" name="next" value="{{ request.GET.next }}"/>
                 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                 <div class="login__field">
                     <i class="login__icon fas fa-user"></i>

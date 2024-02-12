@@ -1,0 +1,27 @@
+<h1>Delete from user</h1>
+ <h1> {{user}}</h1>
+{% if components %}
+
+<ul>
+    {% for component in components %}
+        <li>{{ forloop.counter }}  </li>
+        <li>{{ component.id }}  </li>
+        <li>{{ component.code }}</li>
+        <li>{{ component.types }}</li>
+        <li>{{ component.characteristics }}</li>
+        <tr>
+            <td>
+                <form action="http://localhost:8000/delete_components/" method="post">
+                <input type="hidden" name="component.id " value="{{component.id }}">
+                <input type="submit" value="Delete compontent">
+                {% csrf_token %}
+                </form>
+            </td>
+        </tr>
+
+    {% endfor %}
+</ul>
+{% else %}
+<p>No polls are available.</p>
+
+{% endif %}

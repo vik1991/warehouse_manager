@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Component(models.Model):
@@ -11,19 +12,9 @@ class Component(models.Model):
         db_table = 'components'
 
 
-class User(models.Model):
-    username = models.CharField(max_length=100)
-    password = models.CharField(max_length=250)
-    email = models.EmailField()
-
-    class Meta:
-        db_table = 'users'
-
-
 class UserComponentPivot(models.Model):
     component_id = models.ForeignKey(Component, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-
 
     class Meta:
         db_table = 'components_users_pivot'
