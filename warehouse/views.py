@@ -81,17 +81,19 @@ class WarehouseView:
     @method_decorator(login_required)
     def edit_component(self,request):
         user = request.user
-        print('ta epilegmena id ton user einai ', user)
         if request.method == 'POST':
             components = UserComponentPivot.objects.filter(user_id = user).values('component_id_id')
-            print(f'o epilegmenos user einai o {user} kai ta components einai {components} ', user, components)
+            code = request.POST.get('code',False)
+            types = request.POST.get('types',False)
+            characteristics = request.POST.get('characteristics',False)
+            print(f'ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss', code, types, characteristics)
 
-            return render(request, "warehouse/edit_component.html")
+            return redirect("/edit_component")
 
         else:
             componentId = UserComponentPivot.objects.filter(user_id=user).values('component_id_id')
             components = Component.objects.filter(id__in=componentId)
-            print(f'o epilegmenos user einai o {user} kai ta components einai {components} ', user, components)
+            # print(f'o epilegmenos userrrrrrr einai o {user} kai ta components einai {components} ', user, components)
             context ={
                 'components': components
 
