@@ -15,6 +15,7 @@ urlpatterns = [
     path("logout_view/",objectHome.logout_view, name="logout_view"),
     path("change_pass/",objectHome.change_password, name ="change_password"),
     path("edit_component/",objectHome.edit_component, name="edit_copmponent"),
+    path("edit_username/",objectHome.edit_username, name="edit_username"),
 ]
 
 

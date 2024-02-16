@@ -78,6 +78,16 @@ class WarehouseView:
         return render(request, 'warehouse/show_component.html', context)
 
     @method_decorator(login_required)
+    def edit_username(self,request):
+        if request.method == "POST":
+            username = request.POST.get("username",False)
+            print(username)
+            if username is not "":
+                print("pame na alaxome to username")
+
+        return render(request, 'warehouse/edit_username.html')
+
+    @method_decorator(login_required)
     def edit_component(self, request):
         user = request.user
         if request.method == 'POST':
