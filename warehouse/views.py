@@ -77,33 +77,44 @@ class WarehouseView:
         print(context)
         return render(request, 'warehouse/show_component.html', context)
 
-
     @method_decorator(login_required)
-    def edit_component(self,request):
+    def edit_component(self, request):
         user = request.user
         if request.method == 'POST':
-            components = UserComponentPivot.objects.filter(user_id = user).values('component_id_id')
-            code = request.POST.get('code',False)
-            types = request.POST.get('types',False)
-            characteristics = request.POST.get('characteristics',False)
-            print(f'ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss', code, types, characteristics)
+            code = request.POST.get('code', False)
+            types = request.POST.get('types', False)
+            characteristics = request.POST.get('characteristics', False)
+            typesId = request.POST.get('typesId', False)
+            codeId = request.POST.get('codeId', False)
+            characteristicsId = request.POST.get('characteristicsId', False)
+            print(f'sssssssss {codeId} sssssssssss {typesId} ssssssssssssssssssss {characteristicsId} ssssssss', code,
+                  types,
+                  characteristics)
+            if code is not False and code is not "":
+                updateCode = Component.objects.get(id=codeId)
+                updateCode.code = code
+                updateCode.save()
+            if types is not False and types is not "":
+                updateTypes = Component.objects.get(id=typesId)
+                updateTypes.types = types
+                updateTypes.save()
+            if characteristics is not False and characteristics is not "":
+                characteristicsUpdate = Component.objects.get(id=characteristicsId)
+                characteristicsUpdate.characteristics=characteristics
+                characteristicsUpdate.save()
 
             return redirect("/edit_component")
 
         else:
             componentId = UserComponentPivot.objects.filter(user_id=user).values('component_id_id')
             components = Component.objects.filter(id__in=componentId)
-            # print(f'o epilegmenos userrrrrrr einai o {user} kai ta components einai {components} ', user, components)
-            context ={
+            context = {
                 'components': components
 
             }
-            return render(request, "warehouse/edit_component.html",context)
-
+            return render(request, "warehouse/edit_component.html", context)
 
         return render(request, "warehouse/edit_component.html")
-
-
 
     @method_decorator(login_required)
     def delete_components(self, request):
@@ -125,7 +136,6 @@ class WarehouseView:
             return render(request, 'warehouse/delete_components.html', context)
         return render(request, 'warehouse/delete_components.html', context)
 
-
     @method_decorator(login_required)
     def show_components(self, request):
         components = Component.objects.all()
@@ -136,7 +146,6 @@ class WarehouseView:
         }
         print(context)
         return render(request, 'warehouse/show_components.html', context)
-
 
     @method_decorator(login_required)
     def componentMenu(self, request):
@@ -156,19 +165,16 @@ class WarehouseView:
         else:
             return render(request, 'warehouse/component_menu.html')
 
-
     def show_users(self, request):
         print("eimaste sto show users")
         users_print = User.objects.values()
         print(users_print)
         return render(request, 'warehouse/login.html')
 
-
     def logout_view(self, request):
         print("kaname logout")
         logout(request)
         return redirect('/login')
-
 
     def change_password(self, request):
         if request.method == "POST":

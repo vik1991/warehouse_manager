@@ -1,5 +1,13 @@
-<h1>Edit from user</h1>
- <h1> {{user}}</h1>
+<h1>Edit from user  {{user}}</h1>
+<li><a href="http://localhost:8000/login/">Login page</a>
+<li><a href="http://localhost:8000/components/">Insert components</a>
+<li><a href="http://localhost:8000/show_components/">Show Components</a>
+<li><a href="http://localhost:8000/show_component/">Show Component</a>
+<li><a href="http://localhost:8000/delete_components/">Delete Component</a>
+
+<a href="http://localhost:8000/logout_view/">
+    <button>logout</button>
+</a>
 {% if components %}
 
 <ul>
@@ -9,8 +17,9 @@
         <tr>
             <td>
                 <form action="http://localhost:8000/edit_component/" method="post">
-                <input type="text" id="code" name="code" placeholder={{ component.code }}>
-                <input type="submit" value="edit code">
+                <input type="text" id="code" value="{{ component.code }}" name="code" placeholder="{{ component.code }}">
+                <input type="hidden" name="codeId" value="{{component.id }}">
+                <input type="submit" value="edit code" >
                 {% csrf_token %}
                 </form>
             </td>
@@ -21,19 +30,21 @@
         <tr>
             <td>
                 <form action="http://localhost:8000/edit_component/" method="post">
-                <input type="text" id="types" name="types" placeholder={{ component.types }}>
+                <input type="text" id="typesId" name="types" value="{{ component.types }}" placeholder={{ component.types }}>
+                <input type="hidden" name="typesId" value="{{component.id }}">
                 <input type="submit" value="edit type">
                 {% csrf_token %}
                 </form>
             </td>
         </tr>
 
-        <li>{{ component.characteristics }}</li>
+        {{ component.characteristics }}
 
         <tr>
             <td>
                 <form action="http://localhost:8000/edit_component/" method="post">
-                <input type="text" id="characteristics" name="characteristics" placeholder={{ component.characteristics }}>
+                <input type="text" id="characteristicsId" name="characteristics" value="{{ component.characteristics }}" placeholder={{ component.characteristics }}>
+                <input type="hidden" name="characteristicsId" value="{{component.id }}">
                 <input type="submit" value="edit characteristics">
                 {% csrf_token %}
                 </form>
@@ -44,5 +55,4 @@
 </ul>
 {% else %}
 <p>No polls are available.</p>
-
 {% endif %}
